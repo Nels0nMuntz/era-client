@@ -1,12 +1,15 @@
-import { Layout, List, Typography } from "@/components";
-
-
+import { BoardList, BoardPagination, FullscreenView, Layout, Typography } from "@/components";
 
 export function Board() {
   return (
     <Layout>
-      <Typography element="h1" type="heading_1">Events</Typography>
-      <List></List>
+      <FullscreenView>
+        <Typography element='h1' type='heading_2'>
+          Events
+        </Typography>
+        <BoardList />
+        <BoardPagination />
+      </FullscreenView>
     </Layout>
   );
 }

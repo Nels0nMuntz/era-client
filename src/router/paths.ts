@@ -3,9 +3,9 @@ export const APP_PATHS = {
     path: "/board",
   },
   registration: {
-    path: "/registration",
+    path: "/registration/:id",
   },
   participants: {
-    path: "/participants",
+    path: "/participants/:id",
   },
 };

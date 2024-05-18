@@ -1,0 +1,6 @@
+.heading_1 {
+  @apply text-5xl font-semibold first:mt-0;
+}
+.heading_2 {
+  @apply text-4xl font-semibold first:mt-0;
+}

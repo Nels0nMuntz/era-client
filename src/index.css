@@ -1,6 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "./styles/fonts.css";
+@import "./styles/base.css";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
 
 @layer base {
   :root {
