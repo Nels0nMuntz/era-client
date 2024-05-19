@@ -5,3 +5,9 @@ export interface BoardEvent {
   eventDate: string;
   organizer: string;
 }
+
+export interface GetBoardEventsResponse {
+  events: BoardEvent[];
+  currentPage: number;
+  totalPages: number;
+}

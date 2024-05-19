@@ -47,12 +47,16 @@ const events: BoardEvent[] = [
   },
 ];
 
-export function BoardList() {
+interface Props {
+  data: BoardEvent[];
+}
+
+export function BoardList({data}: Props) {
   return (
     <div className='flex-grow'>
       <List>
-        {events.map((item, index) => (
-          <BoardCard {...item} key={index}/>
+        {data.map((item, index) => (
+          <BoardCard {...item} key={index} />
         ))}
       </List>
     </div>

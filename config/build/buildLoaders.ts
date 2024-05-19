@@ -6,10 +6,22 @@ import {BuildOptions} from "./types/types";
 export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     const isDev = options.mode === 'development';
 
-    const assetLoader = {
-        test: /\.(png|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
-    }
+    const assetsLoaders = [
+        {
+            test: /\.(png|jpg|jpeg|gif)$/i,
+            type: 'asset/resource',
+            generator: {
+                filename: isDev ? "assets/[name].[ext]" : "assets/[hash][ext][query]",
+            },
+        },
+        {
+            test: /\.(eot|ttf|otf|woff(2)?)$/,
+            type: "asset/resource",
+            generator: {
+                filename: isDev ? "fonts/[name].[ext]" : "fonts/[hash][ext][query]",
+            }
+        },
+    ]
 
     const svgrLoader = {
         test: /\.svg$/i,
@@ -62,7 +74,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
 
 
     return [
-        assetLoader,
+        ...assetsLoaders,
         cssLoader,
         tsLoader,
         svgrLoader
