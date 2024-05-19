@@ -1,10 +1,6 @@
 import { BoardEvent } from "../BoardEvent/BoardEvent";
 
-export enum EventSource {
-  SocialMedia = "Social media",
-  Friends = "Friends",
-  FoundMyself = "Found myself",
-}
+export type EventSource = "Social media" | "Friends" | "Found myself"
 
 export interface User {
   id: string;
@@ -15,4 +11,11 @@ export interface User {
     event: BoardEvent;
     eventSource: EventSource;
   }[];
+}
+
+export interface RegisterUserRequest {
+  eventId: string;
+  userData: Pick<User, "fullName" | "email" | "dateOfBirth"> & {
+    eventSource: EventSource;
+  };
 }

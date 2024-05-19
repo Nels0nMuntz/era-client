@@ -14,7 +14,8 @@ export function Board() {
       keepPreviousData: true,
     },
   );
-
+  console.log({data, isError, isLoading });
+  
   useEffect(() => {
     if (data) {
       setTotalPages(data.totalPages);
@@ -23,7 +24,7 @@ export function Board() {
   useEffect(() => {
     if (currentPage < totalPages) {
       const nextPage = currentPage + 1;
-      queryClient.prefetchQuery(["events", nextPage, () => eventsApi.fetchEvents(nextPage)]);
+      queryClient.prefetchQuery(["events", nextPage], () => eventsApi.fetchEvents(nextPage));
     }
   }, [currentPage, totalPages, queryClient]);
 

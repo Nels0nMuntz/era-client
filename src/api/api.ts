@@ -1,12 +1,13 @@
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = process.env.API_URL;
 
-function _handleError(res: Response) {
-  return res.ok ? res : Promise.reject(res.statusText);
+async function _handleError(res: Response) {
+  const json = await res.json();
+  return res.ok ? json : Promise.reject(json);
 }
 function _handleContentType(res: Response) {
   const contentType = res.headers.get("content-type");
   if (contentType && contentType.includes("application/json")) {
-    return res.json();
+    return res;
   }
   return Promise.reject("Haven't got JSON!");
 }
@@ -16,8 +17,8 @@ function get<T>(endpoint: string): Promise<T> {
     method: "GET",
     headers: { Accept: "application/json" },
   })
-    .then(_handleError)
     .then(_handleContentType)
+    .then(_handleError)
     .catch((error) => {
       throw error;
     });
@@ -27,10 +28,10 @@ function post<T>(endpoint: string, body: any): Promise<T> {
   return fetch(`${BASE_URL}${endpoint}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: body,
+    body: JSON.stringify(body),
   })
-    .then(_handleError)
     .then(_handleContentType)
+    .then(_handleError)
     .catch((error) => {
       throw error;
     });

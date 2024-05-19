@@ -1,7 +1,8 @@
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
-import { browserRouter } from "./router";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { Toaster } from "@/components/ui/toaster";
+import { browserRouter } from "./router";
 import "./index.css";
 
 const queryClient = new QueryClient();
@@ -14,6 +15,7 @@ const container = createRoot(root);
 
 container.render(
   <QueryClientProvider client={queryClient}>
-    <RouterProvider router={browserRouter} />{" "}
+    <RouterProvider router={browserRouter} />
+    <Toaster />
   </QueryClientProvider>,
 );

@@ -8,7 +8,7 @@ interface Props extends React.PropsWithChildren {
 export function Layout({ isLoading, children }: Props) {
   if (isLoading) {
     return (
-      <FullscreenView className='items-center justify-center'>
+      <FullscreenView center>
         <Loader />
       </FullscreenView>
     );

@@ -1,1 +1,1 @@
-export { default as eventsApi } from "./events/events";
+export { default as eventsApi } from "./eventsApi";

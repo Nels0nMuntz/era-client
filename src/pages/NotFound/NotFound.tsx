@@ -6,11 +6,13 @@ import { APP_PATHS } from "@/router";
 export function NotFound() {
   return (
     <Layout>
-      <FullscreenView className="items-center justify-center">
+      <FullscreenView center>
         <Typography element='h1' type='heading_1'>
           Not Found
         </Typography>
-        <Link to={APP_PATHS.board.path} className={buttonVariants({ variant: "outline" })}>Go to homepage</Link>
+        <Link to={APP_PATHS.board.path} className={buttonVariants({ variant: "outline" })}>
+          Go to homepage
+        </Link>
       </FullscreenView>
     </Layout>
   );

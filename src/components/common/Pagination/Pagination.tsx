@@ -17,7 +17,7 @@ export function Pagination({ page, total, onPageChange }: Props) {
     const curr = index + 1;
     const variant = page === curr ? "default" : "outline";
     return (
-      <PaginationItem>
+      <PaginationItem key={index}>
         <Button variant={variant} onClick={() => onClickPage(curr)}>
           {curr}
         </Button>
