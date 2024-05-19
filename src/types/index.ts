@@ -1,2 +1,2 @@
-export { BoardEvent, GetBoardEventsResponse } from './BoardEvent/BoardEvent'
-export { User, RegisterUserRequest } from './User/User'
+export { BoardEvent, GetBoardEventsResponse, GetBoardEventResponse } from './BoardEvent/BoardEvent'
+export { User, RegisterUserRequest, GetParticipantsResponse, EventParticipant } from './User/User'

@@ -5,18 +5,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { User } from "@/types";
+import { EventParticipant } from "@/types";
 
-interface Props extends Pick<User, "fullName" | "email"> {}
+interface Props {
+  data: EventParticipant
+}
 
-export function ParticipantCard({ fullName, email }: Props) {
+export function ParticipantCard({ data }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl">{fullName}</CardTitle>
+        <CardTitle className="text-xl">{data.fullName}</CardTitle>
       </CardHeader>
       <CardContent>
-        <CardDescription>{email}</CardDescription>
+        <CardDescription>{data.email}</CardDescription>
       </CardContent>
     </Card>
   );

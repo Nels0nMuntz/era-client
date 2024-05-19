@@ -14,7 +14,6 @@ export function Board() {
       keepPreviousData: true,
     },
   );
-  console.log({data, isError, isLoading });
   
   useEffect(() => {
     if (data) {
@@ -33,15 +32,8 @@ export function Board() {
 
   const setPage = (page: number) => setCurrentPage(page);
 
-  if (isError) {
-    return (
-      <Typography element='h1' type='heading_2'>
-        An error occured
-      </Typography>
-    );
-  }
   return (
-    <Layout isLoading={isLoadingData}>
+    <Layout isLoading={isLoadingData} isError={isError}>
       <FullscreenView>
         <Typography element='h1' type='heading_2'>
           Events

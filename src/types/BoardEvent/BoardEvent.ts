@@ -11,3 +11,6 @@ export interface GetBoardEventsResponse {
   currentPage: number;
   totalPages: number;
 }
+export interface GetBoardEventResponse {
+  event: BoardEvent;
+}

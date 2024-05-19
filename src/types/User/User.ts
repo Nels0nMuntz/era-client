@@ -1,6 +1,6 @@
 import { BoardEvent } from "../BoardEvent/BoardEvent";
 
-export type EventSource = "Social media" | "Friends" | "Found myself"
+export type EventSource = "Social media" | "Friends" | "Found myself";
 
 export interface User {
   id: string;
@@ -19,3 +19,7 @@ export interface RegisterUserRequest {
     eventSource: EventSource;
   };
 }
+
+export  interface EventParticipant extends Pick<User, "id" | "fullName" | "email"> {}
+
+export interface GetParticipantsResponse extends Array<EventParticipant> {}
