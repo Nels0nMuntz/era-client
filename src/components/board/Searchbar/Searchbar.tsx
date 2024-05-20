@@ -1,5 +1,3 @@
-import { useRef, useState } from "react";
-import { useOnClickOutside } from "@/hooks";
 import { Input } from "@/components/ui/input";
 
 interface Props {
@@ -8,11 +6,6 @@ interface Props {
 }
 
 export function Searchbar({ value, onChange }: Props) {
-  const commandRef = useRef<HTMLDivElement>(null);
-
-  useOnClickOutside(commandRef, () => {
-    onChange("");
-  });
   return (
     <Input
       value={value}
