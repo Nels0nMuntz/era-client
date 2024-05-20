@@ -10,5 +10,7 @@ export { BoardPagination } from './board/BoardPagination/BoardPagination'
 export { SortMenu } from './board/SortMenu/SortMenu'
 export { SortSelect } from './board/SortSelect/SortSelect'
 export { Searchbar } from './board/Searchbar/Searchbar'
+export { BoardWithPagination } from './board/boards/BoardWithPagination'
+export { BoardWithInfiniteloading } from './board/boards/BoardWithInfiniteloading'
 
 export { RegistrationForm } from './registration/RegistrationForm/RegistrationForm'

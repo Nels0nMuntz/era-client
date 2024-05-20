@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -63,8 +63,8 @@ export function RegistrationForm() {
         <EmailTextField control={form.control} />
         <DatePicker control={form.control} />
         <EventSourceRadioGroup control={form.control} />
-        <Button disabled={mutation.isLoading} type='submit'>
-          {mutation.isLoading ? (
+        <Button disabled={mutation.isPending} type='submit'>
+          {mutation.isPending ? (
             <>
               <Loader2 className='mr-2 h-4 w-4 animate-spin' />
               Please wait

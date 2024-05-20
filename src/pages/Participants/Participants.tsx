@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import { useQueries, useQuery } from "react-query";
+import { useCallback, useEffect, useState } from "react";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import debounce from "lodash.debounce";
 import { Layout, Searchbar, Typography } from "@/components";
@@ -11,33 +11,45 @@ export function Participants() {
   const { id: eventId } = useParams();
   const [participants, setParticipants] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  const [participantQuery, eventQuery] = useQueries([
-    {
-      queryKey: ["event_participants", eventId],
-      queryFn: () => eventsApi.fetchParticipants(eventId),
-      onSuccess: (data: GetParticipantsResponse) => {
-        setParticipants(data);
+  const [participantQuery, eventQuery] = useQueries({
+    queries: [
+      {
+        queryKey: ["event_participants", eventId],
+        queryFn: () => eventsApi.fetchParticipants(eventId),
+        refetchOnWindowFocus: false,
       },
-    },
-    {
-      queryKey: ["event_info", eventId],
-      queryFn: () => eventsApi.fetchEvent(eventId),
-    },
-  ]);
-  const { data: participantsData, isError: isErrorParticipants, isLoading: isLoadingParticipants } = participantQuery;
+      {
+        queryKey: ["event_info", eventId],
+        queryFn: () => eventsApi.fetchEvent(eventId),
+      },
+    ]
+  });
+  const {
+    data: participantsData,
+    isError: isErrorParticipants,
+    isLoading: isLoadingParticipants,
+  } = participantQuery;
   const { data: eventData, isError: isErrorEvent, isLoading: isLoadingEvent } = eventQuery;
 
-  const { refetch } = useQuery({
+  const { data: searchData, refetch } = useQuery({
     queryFn: () => {
       if (!searchValue) return participantsData;
       return eventsApi.fetchParticipants(eventId, searchValue);
     },
     queryKey: ["search"],
     enabled: false,
-    onSuccess: (data: GetParticipantsResponse) => {
-      setParticipants(data);
-    },
   });
+
+  useEffect(() => {
+    if(participantsData) {
+      setParticipants(participantsData)
+    }
+  }, [participantsData])
+  useEffect(() => {
+    if(searchData) {
+      setParticipants(searchData)
+    }
+  }, [searchData])
 
   const isLoading = isLoadingParticipants || isLoadingEvent || !eventData;
   const isError = isErrorParticipants || isErrorEvent;

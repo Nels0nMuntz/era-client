@@ -10,12 +10,13 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { APP_PATHS } from "@/router";
 import { BoardEvent } from "@/types";
+import { forwardRef } from "react";
 
 interface Props extends Pick<BoardEvent, "id" | "title" | "description"> {}
 
-export function BoardCard({ id, title, description }: Props) {
+export const BoardCard = forwardRef<any, Props>(({ title, description, id }, ref) => {
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col" ref={ref}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
@@ -32,4 +33,4 @@ export function BoardCard({ id, title, description }: Props) {
       </CardFooter>
     </Card>
   );
-}
+})

@@ -1,71 +1,21 @@
-import { useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
-import { eventsApi } from "@/api";
-import {
-  BoardList,
-  BoardPagination,
-  FullscreenView,
-  Layout,
-  SortMenu,
-  Typography,
-} from "@/components";
+import { BoardWithInfiniteloading, BoardWithPagination } from "@/components";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { useState } from "react";
 
 export function Board() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [sortBy, setSortBy] = useState("");
-  const [orderBy, setOrderBy] = useState("");
-  const queryClient = useQueryClient();
-  const { data, isError, isLoading } = useQuery(
-    ["events", currentPage, sortBy, orderBy],
-    () =>
-      eventsApi.fetchEvents({
-        page: currentPage,
-        sortBy,
-        orderBy,
-      }),
-    {
-      keepPreviousData: true,
-    },
-  );
-
-  useEffect(() => {
-    if (data) {
-      setTotalPages(data.totalPages);
-    }
-  }, [data]);
-  useEffect(() => {
-    if (currentPage < totalPages) {
-      const nextPage = currentPage + 1;
-      queryClient.prefetchQuery(["events", nextPage], () =>
-        eventsApi.fetchEvents({
-          page: currentPage,
-          sortBy,
-          orderBy,
-        }),
-      );
-    }
-  }, [currentPage, totalPages, queryClient]);
-
-  const isLoadingData = isLoading || !data;
-  const events = data?.events || [];
-
-  const setPage = (page: number) => setCurrentPage(page);
-  const onSertChange = ({ sortBy, orderBy }: { sortBy: string; orderBy: string }) => {
-    setSortBy(sortBy);
-    setOrderBy(orderBy);
-  };
-
+  const [infiniteScrollMode, setInfiniteScrollMode] = useState(false);  
   return (
-    <Layout isLoading={isLoadingData} isError={isError}>
-      <FullscreenView>
-        <Typography element='h1' type='heading_2'>
-          Events
-        </Typography>
-        <SortMenu onChange={onSertChange} />
-        <BoardList data={events} />
-        <BoardPagination page={currentPage} total={totalPages} onPageChange={setPage} />
-      </FullscreenView>
-    </Layout>
+    <div className='relative'>
+      <div className='absolute right-8 top-4 flex items-center space-x-2'>
+        <Switch
+          checked={infiniteScrollMode}
+          onCheckedChange={() => setInfiniteScrollMode(!infiniteScrollMode)}
+          id='infinite-scroll'
+        />
+        <Label htmlFor='infinite-scroll'>Infinite scroll</Label>
+      </div>
+      {infiniteScrollMode ? <BoardWithInfiniteloading /> : <BoardWithPagination />}
+    </div>
   );
 }
