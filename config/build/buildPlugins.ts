@@ -6,7 +6,6 @@ import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import path from "path";
-import CopyPlugin from "copy-webpack-plugin";
 import dotenv from "dotenv";
 
 export function buildPlugins({ mode, paths, analyzer }: BuildOptions): Configuration["plugins"] {
@@ -37,11 +36,6 @@ export function buildPlugins({ mode, paths, analyzer }: BuildOptions): Configura
       new MiniCssExtractPlugin({
         filename: "css/[name].[contenthash:8].css",
         chunkFilename: "css/[name].[contenthash:8].css",
-      }),
-    );
-    plugins.push(
-      new CopyPlugin({
-        patterns: [],
       }),
     );
   }
