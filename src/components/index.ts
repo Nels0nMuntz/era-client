@@ -9,5 +9,6 @@ export { BoardList } from './board/BoardList/BoardList'
 export { BoardPagination } from './board/BoardPagination/BoardPagination'
 export { SortMenu } from './board/SortMenu/SortMenu'
 export { SortSelect } from './board/SortSelect/SortSelect'
+export { Searchbar } from './board/Searchbar/Searchbar'
 
 export { RegistrationForm } from './registration/RegistrationForm/RegistrationForm'

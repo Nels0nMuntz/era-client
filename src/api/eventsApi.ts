@@ -29,8 +29,12 @@ async function registerUser({ userData, eventId }: RegisterUserRequest) {
   return api.post(`/events/${eventId}/register`, userData);
 }
 
-async function fetchParticipants(eventId: string) {
-  return api.get<GetParticipantsResponse>(`/events/${eventId}/participants`);
+async function fetchParticipants(eventId: string, search?: string) {
+  let endpoint = `/events/${eventId}/participants`;
+  if (search) {
+    endpoint += `?search=${search}`;
+  }
+  return api.get<GetParticipantsResponse>(endpoint);
 }
 
 export default {
